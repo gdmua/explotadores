@@ -1,1 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <title>Registro Empresas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-image: url('https://i.ytimg.com/vi/zhNDXKD6nm8/maxresdefault.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 0;
+      color: #050303;
+    }
+
+    .glass-container {
+      position: relative;
+      width: 600px;
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #555;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    select {
+      padding: 8px 5px;
+    }
+
+    select[multiple] {
+      height: auto;
+    }
+
+    .button-group {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button#buscarBtn {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    button#buscarBtn:hover {
+      background-color: #5a6268;
+    }
+
+    button#registrarBtn {
+      background-color: #007BFF;
+      color: #fff;
+    }
+
+    button#registrarBtn:hover {
+      background-color: #0056b3;
+    }
+
+    #mensaje {
+      margin-top: 15px;
+      color: green;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-container">
+    <div class="container">
+      <h2>Formulario de Registro explotadores UAS</h2>
+
+      <label>Proceso de Certificación No.:</label>
+      <input type="text" id="certificacion_no">
+
+      <label>Razón Social:</label>
+      <input type="text" id="razon_social">
+
+      <label>Número de Identificación:</label>
+      <input type="text" id="numero_identificacion">
+
+      <label>Fecha de Radicación:</label>
+      <input type="date" id="fecha_radicacion" onchange="calcularDias()">
+
+      <label>Fecha Hoy:</label>
+      <input type="text" id="fecha_hoy" disabled>
+
+      <label>Días desde el inicio:</label>
+      <input type="text" id="dias_inicio" disabled>
+
+      <label>Fecha de próxima entrega:</label>
+      <input type="date" id="fecha_proxima_entrega">
+
+      <label>Gerente SMS:</label>
+      <input type="text" id="gerente_sms">
+
+      <label>Jefe de pilotos:</label>
+      <input type="text" id="jefe_pilotos">
+
+      <label>Nombre encargado:</label>
+      <input type="text" id="nombre_encargado">
+
+      <label>Estado:</label>
+      <input type="text" id="estado">
+
+      <label>Líder proceso:</label>
+      <input type="text" id="lider_proceso">
+
+      <label>Ciudad para la inspección administrativa:</label>
+      <input type="text" id="ciudad_inspeccion_adm">
+
+      <label>Ciudad para la inspección operativa:</label>
+      <input type="text" id="ciudad_inspeccion_op">
+
+      <label>Correo:</label>
+      <input type="email" id="correo">
+
+      <label>Contacto:</label>
+      <input type="text" id="contacto">
+
+      <label>Cantidad de aeronaves:</label>
+      <input type="number" id="cantidad_aeronaves">
+
+      <label>Empresa de seguridad:</label>
+      <input type="text" id="empresa_seguridad">
+
+      <label>Tipo de operación bajo RAC 100:</label>
+      <select multiple id="tipo_operacion_rac">
+        <option value="simple">Simple captura de imágenes y datos</option>
+        <option value="seguridad">Vigilancia y seguridad privada</option>
+        <option value="medios">Medios de comunicación</option>
+        <option value="aspersión">Aspersión</option>
+        <option value="dispersión">Dispersión</option>
+        <option value="enjambre">Enjambre</option>
+        <option value="carga">Dron Delivery</option>
+        <option value="publicas">Misionales públicas</option>
+        <option value="instruccion">Instrucción</option>
+        <option value="atencion">Atención de emergencia</option>
+      </select>
+
+      <label>Tipo de contacto visual:</label>
+      <select multiple id="contacto_visual">
+        <option value="VLOS">VLOS</option>
+        <option value="EVLOS">EVLOS</option>
+        <option value="BVLOS">BVLOS</option>
+      </select>
+
+      <label>Vuelos especiales:</label>
+      <select multiple id="vuelos_especiales">
+        <option value="mercancias_peligrosas">Mercancías peligrosas</option>
+        <option value="vuelo_nocturno">Vuelo nocturno</option>
+        <option value="vuelo_urbano">Vuelo en zona urbana</option>
+        <option value="vuelo_autonomo">Vuelo autónomo</option>
+        <option value="demostraciones">Demostraciones comerciales</option>
+        <option value="aeronaves_pesadas">Aeronaves pesadas 25-250kg</option>
+        <option value="otras">Otras</option>
+      </select>
+
+      <div class="button-group">
+        <button id="registrarBtn" onclick="registrar()">Registrar</button>
+      </div>
+
+      <p id="mensaje"></p>
+    </div>
+  </div>
+
+  <script>
+    
+    // 🔒 Bloquear clic derecho
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+  alert("El clic derecho está deshabilitado.");
+});
+    function calcularDias() {
+      const fechaRad = new Date(document.getElementById('fecha_radicacion').value);
+      const hoy = new Date();
+      const dias = Math.floor((hoy - fechaRad) / (1000 * 60 * 60 * 24));
+      document.getElementById('dias_inicio').value = isNaN(dias) ? '' : dias;
+    }
+
+    function registrar() {
+      const data = {
+        certificacion_no: document.getElementById('certificacion_no').value,
+        razon_social: document.getElementById('razon_social').value,
+        numero_identificacion: document.getElementById('numero_identificacion').value,
+        fecha_radicacion: document.getElementById('fecha_radicacion').value,
+        fecha_hoy: document.getElementById('fecha_hoy').value,
+        dias_inicio: document.getElementById('dias_inicio').value,
+        fecha_proxima_entrega: document.getElementById('fecha_proxima_entrega').value,
+        gerente_sms: document.getElementById('gerente_sms').value,
+        jefe_pilotos: document.getElementById('jefe_pilotos').value,
+        nombre_encargado: document.getElementById('nombre_encargado').value,
+        estado: document.getElementById('estado').value,
+        lider_proceso: document.getElementById('lider_proceso').value,
+        ciudad_inspeccion_adm: document.getElementById('ciudad_inspeccion_adm').value,
+        ciudad_inspeccion_op: document.getElementById('ciudad_inspeccion_op').value,
+        correo: document.getElementById('correo').value,
+        contacto: document.getElementById('contacto').value,
+        cantidad_aeronaves: document.getElementById('cantidad_aeronaves').value,
+        empresa_seguridad: document.getElementById('empresa_seguridad').value,
+        tipo_operacion_rac: Array.from(document.getElementById('tipo_operacion_rac').selectedOptions).map(o => o.value),
+        contacto_visual: Array.from(document.getElementById('contacto_visual').selectedOptions).map(o => o.value),
+        vuelos_especiales: Array.from(document.getElementById('vuelos_especiales').selectedOptions).map(o => o.value)
+      };
+
+      if (!data.numero_identificacion) {
+        alert("Por favor ingresa el número de identificación.");
+        return;
+      }
+
+      google.script.run.withSuccessHandler(function (respuesta) {
+        document.getElementById('mensaje').innerText = respuesta;
+      }).registrarPersona(data);
+    }
+
+    window.onload = () => {
+      const hoy = new Date().toISOString().split('T')[0];
+      document.getElementById('fecha_hoy').value = hoy;
+    };
+  </script>
+</body>
+</html>
 
